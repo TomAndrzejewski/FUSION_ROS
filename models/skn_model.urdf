@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<robot name="skn_agv">
+
+    <!-- MAIN BASE LINK -->
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <cylinder length="0.005" radius="0.125"/>
+            </geometry>
+        </visual>
+    
+        <collision>
+            <geometry>
+                <cylinder length="0.4" radius="0.18"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- THIS IS VISUALIZATION OF MAIN COLLISION OBJECT, COMMENT IT OUT FOR FINAL VERSION -->
+   <!-- <link name="collision">
+        <visual>
+            <geometry>
+                <cylinder length="0.4" radius="0.18"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="collision_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="collision"/>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+    </joint>-->
+    
+    <!-- CONNECTOR BETWEEN BASE_LINK AND RIGHT WHEEL -->
+    <link name="right_wheel_holder">
+        <visual>
+            <geometry>
+                <box size="0.04 0.01 0.03"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="right_wheel_lower_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="right_wheel_holder"/>
+        <origin xyz="0 0.12 0.0175" rpy="0 0 0"/>
+    </joint>
+    
+    <!-- RIGHT WHEEL LINK -->
+    <link name="right_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.02" radius="0.065"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="right_wheel_upper_joint" type="continuous">
+        <parent link="right_wheel_holder"/>
+        <child link="right_wheel"/>
+        <origin xyz="0 0.015 0.015" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <!-- CONNECTOR BETWEEN BASE_LINK AND LEFT WHEEL -->
+    <joint name="left_wheel_lower_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="left_wheel_holder"/>
+        <origin xyz="0 -0.12 0.0175" rpy="0 0 0"/>
+    </joint>
+
+    <link name="left_wheel_holder">
+        <visual>
+            <geometry>
+                <box size="0.04 0.01 0.03"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <!-- LEFT WHEEL LINK -->
+    <joint name="left_wheel_upper_joint" type="continuous">
+        <parent link="left_wheel_holder"/>
+        <child link="left_wheel"/>
+        <origin xyz="0 -0.015 0.015" rpy="0 0 0"/>
+        <axis xyz="0 1 0"/>
+    </joint>
+     
+    <link name="left_wheel">
+        <visual>
+            <origin xyz="0 0 0" rpy="1.570795 0 0"/>
+            <geometry>
+                <cylinder length="0.02" radius="0.065"/>
+            </geometry>
+        </visual>
+    </link>
+
+</robot>
