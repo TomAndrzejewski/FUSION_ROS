@@ -56,7 +56,7 @@
         </visual>
     </link>
 
-    <joint name="right_wheel_upper_joint" type="continuous">
+    <joint name="right_wheel_upper_joint" type="fixed">
         <parent link="right_wheel_holder"/>
         <child link="right_wheel"/>
         <origin xyz="0 0.015 0.015" rpy="0 0 0"/>
@@ -79,7 +79,7 @@
     </link>
 
     <!-- LEFT WHEEL LINK -->
-    <joint name="left_wheel_upper_joint" type="continuous">
+    <joint name="left_wheel_upper_joint" type="fixed">
         <parent link="left_wheel_holder"/>
         <child link="left_wheel"/>
         <origin xyz="0 -0.015 0.015" rpy="0 0 0"/>
@@ -95,4 +95,33 @@
         </visual>
     </link>
 
+    <!-- TOWER -->
+    <link name="tower">
+        <visual>
+            <geometry>
+                <cylinder length="0.58" radius="0.04"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="tower_base_link_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="tower"/>
+        <origin xyz="-0.09 0 0.29" rpy="0 0 0"/>
+    </joint>
+
+    <!-- LIDAR -->
+    <link name="laser">
+        <visual>
+            <geometry>
+                <cylinder length="0.03" radius="0.03"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="tower_laser_joint" type="fixed">
+        <parent link="tower"/>
+        <child link="laser"/>
+        <origin xyz="0 0 0.30" rpy="0 0 0"/>
+    </joint>
 </robot>
