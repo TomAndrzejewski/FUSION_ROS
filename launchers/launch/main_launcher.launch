@@ -2,20 +2,28 @@
     <!-- Odom node launcher -->
     <node pkg="arduino_nodes" type="odom" name="odom"/>
 
+    <!-- Rosserial launcher -->
+    <node pkg="rosserial_python"    type="serial_node.py"  name="serial_node">
+        <param name="_port"   value="/dev/ttyACM0"/>
+        <param name="_baud"   value="115200"/>    
+    </node>
+
     <!-- LIDAR scan launcher -->
-    <node pkg="rplidar_ros" name="rplidarNode"  type="rplidarNode">
-    <param name="serial_port"       type="string"   value="/dev/ttyUSB0"/>
-    <param name="serial_baudrate"   type="int"      value="115200"/>
-    <param name="frame_id"          type="string"   value="laser"/>
-    <param name="inverted"          type="bool"     value="false"/>
-    <param name="angle_compensate"  type="bool"     value="true"/>
+    <node pkg="rplidar_ros"     name="rplidarNode"  type="rplidarNode">
+        <param name="serial_port"       type="string"   value="/dev/ttyUSB0"/>
+        <param name="serial_baudrate"   type="int"      value="115200"/>
+        <param name="frame_id"          type="string"   value="laser"/>
+        <param name="inverted"          type="bool"     value="false"/>
+        <param name="angle_compensate"  type="bool"     value="true"/>
     </node>
 
     <!-- Send lidarON command to arduino -->
-    <node pkg="rostopic" type="rostopic"    name="lidarON"  args="pub -1 /lidarON std_msgs/Bool 'data: true'"/>
+    <node pkg="rostopic" type="rostopic"    name="lidarON" args="pub -l /lidarON std_msgs/Bool 'data: true'"/>
 
     <!-- urdf model launcher -->
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub"/>
     <arg name="model" default="$(find models)/skn_model.urdf"/>
-    <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub">
+        <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+        <param name="tf_prefix"     type="string"   value=""/>
+    </node>   
 </launch>
