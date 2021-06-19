@@ -4,8 +4,8 @@
 
     <!-- Rosserial launcher -->
     <node pkg="rosserial_python"    type="serial_node.py"  name="serial_node">
-        <param name="_port"   value="/dev/ttyACM0"/>
-        <param name="_baud"   value="115200"/>    
+        <param name="port"   value="/dev/ttyACM0"/>
+        <param name="baud"   value="115200"/>
     </node>
 
     <!-- LIDAR scan launcher -->
@@ -22,8 +22,7 @@
 
     <!-- urdf model launcher -->
     <arg name="model" default="$(find models)/skn_model.urdf"/>
-    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub">
-        <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub"/>
+        <param name="robot_description" textfile="$(arg model)"/>
         <param name="tf_prefix"     type="string"   value=""/>
-    </node>   
 </launch>
