@@ -1,0 +1,13 @@
+<launch>
+	<arg name="scan_topic" default="scan"/>
+	<arg name="map_file" default="$(find launchers)/maps/my_map.yaml"/>
+
+	<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)"/>
+
+	<node pkg="amcl" type="amcl" name="amcl">
+		<rosparam file="$(find launchers)/params/amcl_params.yaml" command="load"/>
+		<remap from="scan" to="$(arg scan_topic)"/>
+	</node>
+
+	<node pkg="rosservice" type="rosservice" name="global_loc" args="call --wait /global_localization"/> 
+</launch>
