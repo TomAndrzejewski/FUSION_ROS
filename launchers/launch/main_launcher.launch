@@ -25,4 +25,8 @@
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub"/>
         <param name="robot_description" textfile="$(arg model)"/>
         <param name="tf_prefix"     type="string"   value=""/>
+
+    <!-- RVIZ launcher -->
+    <arg name="rvizconfig" default="$(find launchers)/rviz/nav_stack.rviz"/>
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true"/>
 </launch>
